@@ -3,10 +3,6 @@
 
 {% block title %} Logar | Jobs App {% endblock %}
 
-{% block head %}
-<link rel="stylesheet" href="{% static 'autenticacao/css/cadastro.css' %}">
-{% endblock %}
-
 {% block content %}
     <div class="box">
         <form action="{% url 'login' %}" method="post">{% csrf_token %}
@@ -20,6 +16,7 @@
             <span class="span-descricao">Senha:</span>
             <input type="password" class="form-control input-cadastro" name="password">
             <br>
+            <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
             <input  type="submit" value="LOGAR" class="btn btn-success btn-lg">
             <a href="{% url 'cadastro' %}" class="btn btn-primary btn-lg">CADASTRO</a> 
         </form>

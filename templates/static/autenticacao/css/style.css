@@ -43,3 +43,7 @@
     border-image: linear-gradient(90deg,rgba(231,71,220,1) 0%,rgba(255,207,0,1) 100%);
     border-image-slice: 1;
 }
+
+.reset_done{
+    text-align: center;
+}
