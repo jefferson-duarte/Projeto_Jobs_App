@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'autenticacao/css/style.css' %}"> 
+{% endblock %}
+
 {% block title %}Cadastro | Jobs App{% endblock %}
 
 {% block content %}
