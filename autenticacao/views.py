@@ -10,7 +10,7 @@ from django.contrib import auth
 def cadastro(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            return redirect('/plataforma')
+            return redirect('/auth/plataforma')
         return render(request, 'cadastro.html')
     elif request.method == 'POST':
         username = request.POST.get('username').lower().strip()
@@ -44,7 +44,7 @@ def cadastro(request):
 def login(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            return redirect('/plataforma')
+            return redirect('/auth/plataforma')
         return render(request, 'logar.html')
     elif request.method == 'POST':
         username = request.POST.get('username')
@@ -57,9 +57,13 @@ def login(request):
             return redirect('/auth/login')
         else:
             auth.login(request, usuario)
-            return redirect('/plataforma')
+            return redirect('/auth/plataforma')
         
         
 def sair(request):
     auth.logout(request)
     return redirect('/auth/login')
+
+
+def plataforma(request):
+    return render(request, 'plataforma.html')
