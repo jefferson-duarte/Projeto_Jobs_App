@@ -2,6 +2,10 @@ from datetime import datetime
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .models import Jobs
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.messages import constants
+
 
 def encontrar_jobs(request):
     if request.method == 'GET':
@@ -47,3 +51,29 @@ def aceitar_job(request, id):
     job.reservado = True
     job.save()
     return redirect('/jobs/encontrar_jobs')
+
+
+def perfil(request):
+    if request.method == 'GET':
+        return render(request, 'perfil.html')
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        primeiro_nome = request.POST.get('primeiro_nome')
+        ultimo_nome = request.POST.get('ultimo_nome')
+
+        usuario = User.objects.filter(username=username).exclude(id=request.user.id)
+        
+        if usuario.exists():
+            messages.add_message(request, constants.ERROR, 'Já existe um usuário com o esse nome cadastrado.')
+            return redirect('/jobs/perfil')
+
+        request.user.username = username
+        request.user.email = email
+        request.user.first_name = primeiro_nome
+        request.user.last_name = ultimo_nome
+        request.user.save()
+        
+        messages.add_message(request, constants.SUCCESS, 'Dados alterados com sucesso.')
+        
+        return redirect('/jobs/perfil')
