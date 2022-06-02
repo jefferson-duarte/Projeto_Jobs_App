@@ -5,8 +5,10 @@ from .models import Jobs
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.messages import constants
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url='/auth/login')
 def encontrar_jobs(request):
     if request.method == 'GET':
         preco_minimo = request.GET.get('preco_minimo')
@@ -53,6 +55,7 @@ def aceitar_job(request, id):
     return redirect('/jobs/encontrar_jobs')
 
 
+@login_required(login_url='/auth/login')
 def perfil(request):
     if request.method == 'GET':
         jobs = Jobs.objects.filter(profissional=request.user)
@@ -81,4 +84,12 @@ def perfil(request):
     
     
 def enviar_projeto(request):
-    pass
+    arquivo = request.FILES.get('file')
+    id_job = request.POST.get('id')
+    
+    job = Jobs.objects.get(id=id_job)
+    
+    job.arquivo_final = arquivo
+    job.status = 'AA'
+    job.save()
+    return redirect('/jobs/perfil')

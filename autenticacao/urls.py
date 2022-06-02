@@ -6,7 +6,6 @@ urlpatterns = [
     path('cadastro/', views.cadastro, name='cadastro'),
     path('login/', views.login, name='login'),
     path('sair/', views.sair, name='sair'),
-    path('plataforma/', views.plataforma, name='plataforma'),
 
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name="password_reset.html"), name="password_reset"),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name="password_reset_done.html"), name="password_reset_done"),
