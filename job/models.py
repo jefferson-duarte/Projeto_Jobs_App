@@ -28,7 +28,8 @@ class Jobs(models.Model):
     referencias = models.ManyToManyField(Referencias)
     profissional = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     reservado = models.BooleanField(default=False)
-    status = models.CharField(max_length=2, choices=status_choice, default='AA')
+    status = models.CharField(max_length=2, choices=status_choice, default='C')
+    arquivo_final = models.FileField(null=True)
     
     def __str__(self):
         return self.titulo

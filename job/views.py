@@ -47,7 +47,7 @@ def encontrar_jobs(request):
 
 def aceitar_job(request, id):
     job = Jobs.objects.get(id=id)
-    job.professional = request.user
+    job.profissional = request.user
     job.reservado = True
     job.save()
     return redirect('/jobs/encontrar_jobs')
@@ -55,7 +55,8 @@ def aceitar_job(request, id):
 
 def perfil(request):
     if request.method == 'GET':
-        return render(request, 'perfil.html')
+        jobs = Jobs.objects.filter(profissional=request.user)
+        return render(request, 'perfil.html', {'jobs': jobs})
     elif request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -77,3 +78,7 @@ def perfil(request):
         messages.add_message(request, constants.SUCCESS, 'Dados alterados com sucesso.')
         
         return redirect('/jobs/perfil')
+    
+    
+def enviar_projeto(request):
+    pass
