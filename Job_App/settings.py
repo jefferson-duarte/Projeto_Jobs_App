@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # local apps
     'autenticacao',
     'job',
+    'plataforma'
 ]
 
 MIDDLEWARE = [
